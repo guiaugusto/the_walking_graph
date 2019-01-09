@@ -15,7 +15,8 @@ function create_graph(){
             color: {
                 border: '#D2B48C',
                 background: '#D2B48C'
-            }
+            },
+            label: String(i)
         }
 
         nodes.push(node);
