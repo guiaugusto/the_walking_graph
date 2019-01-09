@@ -42,4 +42,4 @@ function generateRandomNumber(min_value , max_value)
 }
 
 graph = create_graph();
-console.log(graph)
+// console.log(graph)

@@ -1,36 +1,31 @@
-let nodes = [];
-let edges = [];
-let num = null;
+graph_created = false;
 
-let isvalid = false;
-let is_valid = false;
+function create_edges(nodes){
+
+  list_id = get_all_id(nodes);
+
+}
+
+function get_all_id(nodes){
+  list_id = []
+
+  for(let i = 0; i < nodes.length; i++){
+      list_id.push(nodes[i].id);
+  }
+
+  return list_id;
+}
 
 function draw(nodes){
 
     var container = document.getElementById('mynetwork');
 
-    if(isvalid == false){
-        nodes = create_graph();
-        isvalid = true;
-
-        for(let i = 0; i < 30; i++){
-            for(let j = 0; j < nodes[i].neighbors.length; j++){
-                edge1 = {
-                    from: nodes[i].neighbors[j],
-                    to: nodes[i].id
-                }
-
-                edge2 = {
-                    from: nodes[i].id,
-                    to: nodes[i].neighbors[j]
-                }
-
-                if(!edges.includes(edge1) && !edges.includes(edge2)){
-                    edges.push(edge1);
-                }
-            }
-        }
+    if(!graph_created){
+      nodes = create_graph();
+      graph_created = true;
     }
+
+    var edges = create_edges(nodes)
 
     var data = {
         nodes: nodes,
@@ -58,50 +53,4 @@ function draw(nodes){
 
     network = new vis.Network(container, data, options);
 
-}
-
-stack = []
-
-function on_reload(number){
-
-    num = number;
-
-    console.log(num);
-
-    build_stack_elements(num);
-
-    console.log(stack);
-
-    for(let i = 0; i < stack.length; i++){
-        nodes[stack[i]].color = {
-            border: '#483D8B',
-            background: '#483D8B'
-        }
-        console.log(nodes[stack[i]]);
-    }
-
-    draw(nodes);
-}
-
-function build_stack_elements(number){
-    number = parseInt(number);
-
-    list = nodes[number].neighbors;
-
-    console.log(list);
-
-    if(!stack.includes(number))
-        stack.push(parseInt(number));
-
-    for(let i = 0; i < list.length; i++){
-        if (nodes[list[i]].is_infected == false){
-
-            if(!stack.includes(list[i])){
-                stack.push(list[i]);
-                nodes[list[i]].is_infected = true;
-            }
-
-            build_stack_elements(list[i]);
-        }
-    }
 }
