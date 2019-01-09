@@ -27,7 +27,7 @@ function create_graph(){
 
             number_neighbor = generateRandomNumber(min_value, max_value-1);
 
-            if(!nodes[i].neighbors.includes(number_neighbor)){
+            if(!nodes[i].neighbors.includes(number_neighbor) && number_neighbor != i){
                 nodes[i].neighbors.push(number_neighbor);
                 nodes[number_neighbor].neighbors.push(i);
             }
