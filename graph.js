@@ -3,7 +3,32 @@ graph_created = false;
 function create_edges(nodes){
 
   list_id = get_all_id(nodes);
+  edges = []
 
+  for(let i = 0; i < nodes.length; i++){
+    for(let j = 0; j < nodes[i].neighbors.length; j++){
+      from = nodes[i].id;
+      to = nodes[i].neighbors[j];
+      edge = create_specific_edge(from, to);
+      // Adds edge in the edges list
+      if(is_in_list(from, list_id) && is_in_list(to, list_id)){
+        edges.push(edge);
+        console.log('a');
+        // list_id.splice(list_id.indexOf(to), 1);
+      }
+    }
+    list_id.splice(list_id.indexOf(from), 1);
+  }
+
+  return edges;
+}
+
+function is_in_list(value, list) {
+  return list.indexOf(value) > -1;
+}
+
+function create_specific_edge(from, to){
+  return {from: from, to: to}; //label: String(from) + ' -> ' + String(to)
 }
 
 function get_all_id(nodes){
